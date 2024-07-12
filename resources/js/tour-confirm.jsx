@@ -1,22 +1,30 @@
-
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const Top = (props) => {
-    const { register, handleSubmit } = useForm();
 
+const TourConfirm = (data) => {
+
+    console.log('TourConfirm ');
+    console.log(data.confirm.service);
+
+    const {register, handleSubmit} = useForm();
     const navigate = useNavigate();
 
     const onSubmit = (data) => {
+        console.log('tour confirm');
         console.log(data);
-        navigate('/confirm',{
-            state: data
+        // サーバ側へ通知
+        axios.post('/api/setTour',data)
+        .then(function (response){
+            navigate('/finish');                    
+        })
+        .catch(function (error){
+            console.log(error);
         });
     }
-    //
 
-    return (
+    return(
         <>
             <div className="flex justify-start pt-4">
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -26,14 +34,15 @@ const Top = (props) => {
                             <tr>
                                 <th>Reference Id</th>
                                 <th>
-                                    <input  id="reference_id" {...register('reference_id')} />
+                                    <input type="hidden" id="reference_id" value={data.confirm.reference_id}  {...register('reference_id')}/>
+                                    {data.confirm.reference_id}
                                 </th>
                             </tr>
                             <tr>
                                 <th>Tour Date</th>
                                 <th>
-                                    <input type="date" id="tour_date" {...register('tour_date')}/>
-                                    
+                                <input type="hidden" id="reference_id" value={data.confirm.reference_id}  {...register('reference_id')}/>
+                                    {data.confirm.tour_date}
                                 </th>
                             </tr>
                             <tr>
@@ -41,11 +50,7 @@ const Top = (props) => {
                                         Agent
                                 </th>
                                 <th>
-                                    <select id="agent_list" {...register('agent_list')}>
-                                        <option value="PRT">PRT</option>
-                                        <option value="SAU">SAU</option>
-                                        <option value="NTC">NTC</option>   
-                                    </select>        
+                                    {data.confirm.agent_list}        
                                 </th>
                             </tr>
                             <tr>
@@ -53,16 +58,13 @@ const Top = (props) => {
                                     TOUR NAME
                                 </th>
                                 <th>
-                                    <input type="text" id="tour_name" name="" {...register('tour_name')}  placeholder="Japanse Tour"/>
+                                    {data.confirm.tour_name}
                                 </th>
                             </tr>
                             <tr>
                                 <th>Series/Adhoc</th>
                                 <th>
-                                    <select name="" id="tour_type" {...register('tour_type')}>
-                                        <option value="1">Series</option>
-                                        <option value="2">Adhoc</option>
-                                    </select>
+                                    {data.confirm.tour_type}
                                 </th>
                             </tr>
                             <tr>
@@ -70,11 +72,7 @@ const Top = (props) => {
                                     Destination
                                 </th>
                                 <th>
-                                    <select name="" id="destination" {...register('destination')}>
-                                        <option value="1">Iran</option>
-                                        <option value="2">Japan</option>
-                                        <option value="3">Turkey</option>
-                                    </select>
+                                    {data.confirm.destination}
                                 </th>
                             </tr>
                             <tr>
@@ -82,34 +80,37 @@ const Top = (props) => {
                                     Situation
                                 </th>
                                 <th>
-                                    <select name="" id="situation" {...register('situation')}>
-                                        <option value="1">GA</option>
-                                        <option value="2">P</option>
-                                        <option value="3">CXL</option>
-                                    </select>
+                                    {data.confirm.situation}
                                 </th>
                             </tr>
                             <tr>
                                 <th>PAX</th>
                                 <th>
-                                    <input type="text" id="pax" {...register('pax')} />
+                                    {data.confirm.pax}
                                 </th>
                             </tr>
                             <tr>
                                 <th>SERVICE</th>
                                 <th>
-                                    <input type="text" id="service" {...register('service')}/>
+                                    {data.confirm.service}
                                 </th>
                             </tr>
                         </tbody>
                     </table>
-                    <div className="flex justify-center py-4">
+                    <div className="flex justify-center">
                         <button type="submit" className="bg-blue-500 rounded-xl px-2">submit</button>
-                        
+                        <button type="button" onClick={()=>{
+                           console.log('return');
+                           navigate('/', data);
+                        }} 
+                        className="bg-red-600">
+                            戻る
+                        </button>
                     </div>
-                </form>
+                    </form>
             </div>
         </>
     );
 }
-export default Top;
+
+export default TourConfirm;

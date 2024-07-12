@@ -1,12 +1,23 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TourListController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('top');
     //return view('dashboard');
 });
+
+// TourList
+
+Route::get('/TourList',[TourListController::class,'getList']);
+// TourList CSV Download
+Route::get('/tourcsvdownload',[TourListController::class,'downloadCsvList']);
+// TourList get 
+Route::get('/tourpending',[TourListController::class,'getPendingList']);
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
