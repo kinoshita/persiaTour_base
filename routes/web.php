@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\HotelListController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TourListController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,8 +16,18 @@ Route::get('/', function () {
 Route::get('/TourList',[TourListController::class,'getList']);
 // TourList CSV Download
 Route::get('/tourcsvdownload',[TourListController::class,'downloadCsvList']);
-// TourList get 
+// TourList get
 Route::get('/tourpending',[TourListController::class,'getPendingList']);
+// hotel
+Route::get('/hotel',[HotelListController::class,'index']);
+//
+Route::get('/hotellist',[HotelListController::class,'getHotelList']);
+// hotel edit
+Route::get('hoteledit', [HotelListController::class,'editHotel'])->name('edit.hotel');
+// hotel post
+Route::post('/hotelsettings',[HotelListController::class,'setHotel'])->name('hotel.settings');
+// hotel update
+Route::post('/hotelupdate',[HotelListController::class,'updateHotel'])->name('hotel.update');
 
 
 
