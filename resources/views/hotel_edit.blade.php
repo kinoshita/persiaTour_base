@@ -12,17 +12,23 @@
     <div class="w-full flex justify-center">
         <form class="shadow-md rounded-b-md bg-white w-full max-w-2xl p-2 " method="post" action="{{ route('hotel.update') }}">
             @csrf
-            @if($errors)
-                <div>
-
-                    {{$errors}}
-                </div>
+            @if($errors->any())
             @endif
             <div class="flex sm:items-center mb-6 flex-col sm:flex-row">
                 <label for="city_name" class="block sm:w-2/5 font-bold sm:text-right mb-1 pr-4">
                     CITY:<span class="p-1 ml-2 bg-red-500 rounded text-gray-200">required</span>
                 </label>
                 <input class="block w-full sm:w-3/5 py-2 px-3 text-gray-700 border border-gray-200 rounded focus:outline-none focus:bg-white" id="city_name" name="city_name" value="{{old('city_name',$hotel->city)}}"/>
+
+
+            </div>
+            <div class="flex sm:items-center justify-center mb-6 flex-col sm:flex-row">
+                <span class="block sm:w-2/5 mb-1 pr-4">
+                   @if($errors->has('city_name'))
+                        <p class="text-red-600">{{$errors->first('city_name')}}</p>
+                    @endif
+                </span>
+
             </div>
             <div class="flex sm:items-center mb-6 flex-col sm:flex-row">
                 <label for="hotel_name" class="block sm:w-2/5 font-bold sm:text-right mb-1 pr-4">
