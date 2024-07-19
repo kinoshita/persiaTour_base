@@ -8,6 +8,7 @@ use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class HotelListController extends Controller
 {
@@ -36,7 +37,6 @@ class HotelListController extends Controller
     {
         Log::info($request->input('hotel_id'));
         $hotel = Hotel::where('id', $request->input('hotel_id'))->first();
-
         return view('hotel_edit',compact('hotel'));
     }
 
@@ -48,6 +48,24 @@ class HotelListController extends Controller
     public function updateHotel(HotelEditRequest $request)
     {
         Log::info($request->all());
+        try{
+            $hotel = DB::transaction(function() use ($request){
+               $ret =  Hotel::where('id', $request->input('id'))
+                    ->update([
+                        'city' => $request->input('city_name'),
+                        'hotel_name' => $request->input('hotel_name'),
+                        'address' => $request->input('address'),
+                        'tel'     => $request->input('tel'),
+                        'fax'     => $request->input('fax'),
+                    ]);
+               return $ret;
+            });
+            Log::info($hotel);
+            $message = 'success';
+            return view('hotel_update_finish',compact('message'));
+        }catch (\Throwable $e){
+
+        }
     }
 
     public function setHotel(Request $request)
@@ -74,6 +92,26 @@ class HotelListController extends Controller
             return response()->json();
         }
     }
+    public function downloadHotelList():mixed
+    {
+        $hotel_list = Hotel::all();
+        // csv header
+        $csvHeader = [  'id', 'city', 'hotel_name', 'address',
+            'tel', 'fax', 'created_at', 'updated_at'
+        ];
 
-
+        $csvData = $hotel_list->toArray();
+        $response = new StreamedResponse(function () use ($csvHeader, $csvData){
+            $handle = fopen('php://output', 'w');
+            fputcsv($handle, $csvHeader);
+            foreach($csvData as $row){
+                fputcsv($handle, $row);
+            }
+            fclose($handle);
+        },200,[
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="hotelList.csv"',
+        ]);
+        return $response;
+    }
 }

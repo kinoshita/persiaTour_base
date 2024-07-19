@@ -13,7 +13,10 @@ class TourListController extends Controller
     //
     public function getList(Request $request)
     {
-        return view('tourlist',['users'=>DB::table('persiatours')->paginate(2)]);
+        $tours = DB::table('persiatours')->paginate(2);
+
+
+        return view('tour.tourList', compact('tours'));
     }
 
     // pending list
