@@ -37,13 +37,17 @@
         <tbody>
             @foreach($tours as $tour)
                 <tr>
-                    <td class="border border-slate-300 py-2"><a href="{{ route('edit.hotel',['hotel_id' => $hotel->id]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a></td>
-                    <td class="border border-slate-300 py-2">{{ $tour->id ? $hotel->id : ' '}}</td>
-                    <td class="border border-slate-300 py-2">{{ $hotel->city ? $hotel->city : ' '}}</td>
-                    <td class="border border-slate-300 py-2">{{ $hotel->hotel_name ? $hotel->hotel_name : null}}</td>
-                    <td class="border border-slate-300 py-2">{{ $hotel->address ? $hotel->address : null }}</td>
-                    <td class="border border-slate-300 py-2">{{ $hotel->tel ? $hotel->tel : null}}</td>
-                    <td class="border border-slate-300 py-2">{{ $hotel->fax ? $hotel->fax : null}}</td>
+                    <td class="border border-slate-300 py-2"><a href="{{ route('edit.tour',['tour_id' => $tour->id]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a></td>
+                    <td class="border border-slate-300 py-2">{{ $tour->id ? $tour->id : ' '}}</td>
+                    <td class="border border-slate-300 py-2">{{ $tour->tour_date ? $tour->tour_date : ' '}}</td>
+                    <td class="border border-slate-300 py-2">{{ $tour->reference_id ? $tour->reference_id : null}}</td>
+                    <td class="border border-slate-300 py-2">{{ $tour->agent ? $tour->agent : null }}</td>
+                    <td class="border border-slate-300 py-2">{{ $tour->tour_name ? $tour->tour_name : null}}</td>
+                    <td class="border border-slate-300 py-2">{{ $tour->series ? $tour->series : null}}</td>
+                    <td class="border border-slate-300 py-2">{{ $tour->destination ? $tour->destination : null}}</td>
+                    <td class="border border-slate-300 py-2">{{ $tour->situation ? $tour->situation : null}}</td>
+                    <td class="border border-slate-300 py-2">{{ $tour->pax ? $tour->pax : null}}</td>
+                    <td class="border border-slate-300 py-2">{{ $tour->service ? $tour->service : null}}</td>
                 </tr>
             @endforeach
         </tbody>

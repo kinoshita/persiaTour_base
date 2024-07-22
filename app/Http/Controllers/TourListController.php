@@ -14,8 +14,6 @@ class TourListController extends Controller
     public function getList(Request $request)
     {
         $tours = DB::table('persiatours')->paginate(2);
-
-
         return view('tour.tourList', compact('tours'));
     }
 
@@ -31,7 +29,15 @@ class TourListController extends Controller
 
     }
 
-
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function editTour(Request $request):mixed
+    {
+        $tour = PersiaTour::where('id', $request->input('tour_id'))->first();
+        return view('tour.tour_edit',compact('tour'));
+    }
 
 
     /**

@@ -18,9 +18,17 @@ Route::get('/toppage', function () {
     //return view('dashboard');
 })->name('admin.index');
 
-
-
+/**
+ *
+ */
+// For Tours
 Route::get('/TourList',[TourListController::class,'getList'])->name('tour.list');
+
+Route::get('/edittour',[TourListController::class, 'editTour'])->name('edit.tour');
+
+Route::get('/updatetour',[TourListController::class,'updateTour'])->name('update.tour');
+
+
 // TourList CSV Download
 Route::get('/tourcsvdownload',[TourListController::class,'downloadCsvList']);
 // TourList get
