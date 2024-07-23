@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AgentListController;
 use App\Http\Controllers\HotelListController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TourListController;
 
@@ -32,6 +33,7 @@ Route::get('/confirmTour',[TourListController::class, 'confirmTour'])->name('con
 Route::post('/completeTour',[TourListController::class, 'completeTour'])->name('complete.tour');
 
 
+Route::get('/getpdf',[PdfController::class,'index']);
 
 
 Route::get('/edittour',[TourListController::class, 'editTour'])->name('edit.tour');
@@ -66,6 +68,9 @@ Route::get('/confirmAgent',[AgentListController::class, 'confirmAgent'])->name('
 Route::post('/completeAgent',[AgentListController::class, 'completeAgent'])->name('complete.agent');
 
 Route::get('/agentedit', [AgentListController::class,'editAgent'])->name('agent.edit');
+
+
+
 
 
 Route::get('/dashboard', function () {

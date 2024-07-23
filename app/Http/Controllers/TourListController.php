@@ -28,6 +28,8 @@ class TourListController extends Controller
         $agents = Agent::all();
         $destinations = Destination::all();
         $situations = Situation::all();
+        // AGENTが0の場合
+        if($agents->count() == 0) return view('tour.tour_resettings');
         return view('tour.tour_settings', compact('agents', 'destinations', 'situations'));
     }
 
