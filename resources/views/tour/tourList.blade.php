@@ -13,8 +13,9 @@
     TOUR LIST
 </div>
 <div class="flex justify-end">
-    <button type="button" class="bg-blue-700 text-white rounded px-4 mx-2" onclick="location.href='{{ route('hotel.index') }}'">new add</button>
-    <button type="button" class="bg-blue-700 text-white rounded px-4 mx-2" onclick="location.href='{{ route('hotel.download') }}'">csv download</button>
+    <button type="button" class="bg-blue-700 text-white rounded px-4 mx-2" onclick="location.href='{{ route('tour.tour_settings') }}'">new add</button>
+    <button type="button" class="bg-blue-700 text-white rounded px-4 mx-2" onclick="location.href='{{ route('download.tour') }}'">csv download</button>
+    <button type="button" class="bg-red-700 text-white rounded px-4 mx-2" onclick="location.href='{{route('agent.index')}}'">Agent Settings</button>
 </div>
 <div class="flex justify-center items-center pt-4">
 
@@ -24,7 +25,7 @@
                 <th class="border border-slate-300 px-4 bg-blue-300">Edit</th>
                 <th class="border border-slate-300 px-4 bg-blue-300">Id</th>
                 <th class="border border-slate-300 px-4 bg-blue-300">Date</th>
-                <th class="border border-slate-300 px-4 bg-blue-300">I-00000</th>
+
                 <th class="border border-slate-300 px-4 bg-blue-300">AGENT</th>
                 <th class="border border-slate-300 px-4 bg-blue-300">TOUR NAME</th>
                 <th class="border border-slate-300 px-4 bg-blue-300">Series/Adhoc</th>
@@ -38,9 +39,9 @@
             @foreach($tours as $tour)
                 <tr>
                     <td class="border border-slate-300 py-2"><a href="{{ route('edit.tour',['tour_id' => $tour->id]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a></td>
-                    <td class="border border-slate-300 py-2">{{ $tour->id ? $tour->id : ' '}}</td>
+                    <td class="border border-slate-300 py-2">{{ sprintf('%05d',$tour->id) }}</td>
                     <td class="border border-slate-300 py-2">{{ $tour->tour_date ? $tour->tour_date : ' '}}</td>
-                    <td class="border border-slate-300 py-2">{{ $tour->reference_id ? $tour->reference_id : null}}</td>
+
                     <td class="border border-slate-300 py-2">{{ $tour->agent ? $tour->agent : null }}</td>
                     <td class="border border-slate-300 py-2">{{ $tour->tour_name ? $tour->tour_name : null}}</td>
                     <td class="border border-slate-300 py-2">{{ $tour->series ? $tour->series : null}}</td>

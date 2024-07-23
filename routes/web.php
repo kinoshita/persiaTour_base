@@ -8,8 +8,9 @@ use App\Http\Controllers\TourListController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('top');
-    //return view('dashboard');
+	// 2024.07.23 modify
+    //return view('top');
+    return view('dashboard');
 })->name('admin.index');
 
 // TourList
@@ -23,6 +24,15 @@ Route::get('/toppage', function () {
  */
 // For Tours
 Route::get('/TourList',[TourListController::class,'getList'])->name('tour.list');
+// set new tour
+Route::get('/setTour',[TourListController::class,'setTourList'])->name('tour.tour_settings');
+// Setting Tour
+Route::post('/settingTour',[TourListController::class, 'setTour'])->name('setting.tour');
+Route::get('/confirmTour',[TourListController::class, 'confirmTour'])->name('confirm.tour');
+Route::post('/completeTour',[TourListController::class, 'completeTour'])->name('complete.tour');
+
+
+
 
 Route::get('/edittour',[TourListController::class, 'editTour'])->name('edit.tour');
 
@@ -30,7 +40,7 @@ Route::get('/updatetour',[TourListController::class,'updateTour'])->name('update
 
 
 // TourList CSV Download
-Route::get('/tourcsvdownload',[TourListController::class,'downloadCsvList']);
+Route::get('/tourcsvdownload',[TourListController::class,'downloadCsvList'])->name('download.tour');
 // TourList get
 Route::get('/tourpending',[TourListController::class,'getPendingList']);
 // hotel
@@ -45,16 +55,23 @@ Route::post('/hotelsettings',[HotelListController::class,'setHotel'])->name('hot
 Route::post('/hotelupdate',[HotelListController::class,'updateHotel'])->name('hotel.update');
 // TourList CSV Download
 Route::get('/hotelcsvdownload',[HotelListController::class,'downloadHotelList'])->name('hotel.download');
-
+/**
+ *  Agent
+ */
 // Agent List
 Route::get('/agentList', [AgentListController::class, 'getAgentList'])->name('agent.index');
-// Agent Edit
+Route::get('/settingsAgent',[AgentListController::class, 'settingAgent'])->name('setting.agent');
+// Agent settings
+Route::get('/confirmAgent',[AgentListController::class, 'confirmAgent'])->name('confirm.agent');
+Route::post('/completeAgent',[AgentListController::class, 'completeAgent'])->name('complete.agent');
+
 Route::get('/agentedit', [AgentListController::class,'editAgent'])->name('agent.edit');
 
 
 Route::get('/dashboard', function () {
-    //return view('dashboard');
-    return view('toppage');
+	// 2024.07.23 modify
+    return view('dashboard');
+    //return view('toppage');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

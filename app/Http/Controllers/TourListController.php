@@ -21,6 +21,83 @@ class TourListController extends Controller
         return view('tour.tourList', compact('tours'));
     }
 
+    //
+    public function setTourList(Request $request)
+    {
+        // Agent
+        $agents = Agent::all();
+        $destinations = Destination::all();
+        $situations = Situation::all();
+        return view('tour.tour_settings', compact('agents', 'destinations', 'situations'));
+    }
+
+    /**
+     *  tour info input confirm
+     * @param TourRequest $request
+     * @return void
+     */
+    public function confirmTour(TourRequest $request):mixed
+    {
+        Log::info($request->all());
+        return view('tour.tour_confirm',['all'=>$request->all()]);
+    }
+    /**
+     *
+     *
+     * @param TourRequest $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|void
+     */
+    public function completeTour(TourRequest $request)
+    {
+        Log::info($request->input('tour_date'));
+        try{
+            $tour = DB::transaction(function () use ($request){
+                $ret = PersiaTour:: create([
+                    'tour_date' => $request->input('tour_date'),
+                    'agent' => $request->input('agent'),
+                    'tour_name' => $request->input('tour_name'),
+                    'series' => $request->input('series'),
+                    'destination' => $request->input('destination'),
+                    'situation' => $request->input('situation'),
+                    'pax'       => $request->input('pax'),
+                    'service'    => $request->input('service')
+                ]);
+                return $ret;
+            });
+            return view('tour_complete');
+        }catch (\Throwable $e){
+            Log::info($e);
+        }
+    }
+    /**
+     *
+     * @param TourRequest $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|void
+     */
+
+    public function setTour(TourRequest $request)
+    {
+        try{
+            $tour = DB::transaction(function () use ($request){
+               $ret = PersiaTour:: create([
+                   'date' => $request->input('tour_date'),
+                   'agent' => $request->input('agent'),
+                   'tour_name' => $request->input('tour_name'),
+                   'series' => $request->input('series'),
+                   'destination' => $request->input('destination'),
+                   'situation' => $request->input('situation'),
+                   'pax'       => $request->input('pax'),
+                   'service'    => $request->input('service')
+               ]);
+               return $ret;
+            });
+            return view('tour_confirm', );
+        }catch (\Throwable $e){
+
+        }
+    }
+
+
     // pending list
     // 1: exec
     // 2: pending
@@ -47,7 +124,7 @@ class TourListController extends Controller
 
     public function updateTourList(TourRequest $request)
     {
-        
+
     }
 
 
@@ -60,7 +137,7 @@ class TourListController extends Controller
     public function downloadCsvList():mixed
     {
         $tourlist = PersiaTour::all();
-        Log::info($tourlist);
+
         $csvHeader = [  'id', 'tour_date', 'reference_id', 'agent',
                         'tour_name', 'series', 'destination', 'situation',
                         'pax', 'service', 'created_at', 'updated_at'
@@ -70,6 +147,8 @@ class TourListController extends Controller
             $handle = fopen('php://output', 'w');
             fputcsv($handle, $csvHeader);
             foreach($csvData as $row){
+                $row['id'] = 'I-' . sprintf('%05d', $row['id']);
+                Log::info($row['id']);
                 fputcsv($handle, $row);
             }
             fclose($handle);

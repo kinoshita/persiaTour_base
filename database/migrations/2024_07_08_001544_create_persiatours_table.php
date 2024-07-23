@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('destination')->nullable(false)->comment('destination');
             $table->string('situation')->nullable(false)->comment('situation');
             $table->string('pax')->nullable(false)->comment('pax');
-            $table->string('service')->nullable(false)->comment('service');
+            $table->string('service')->nullable(true)->comment('service');
             $table->timestamps();
         });
     }

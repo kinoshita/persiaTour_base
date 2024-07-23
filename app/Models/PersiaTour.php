@@ -10,6 +10,8 @@ class PersiaTour extends Model
     use HasFactory;
 
     protected $table = 'persiatours';
-
+    protected $guarded = [
+        'id',
+    ];
 
 }

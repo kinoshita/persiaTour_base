@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TourRequest extends FormRequest
+class AgentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,15 +22,9 @@ class TourRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tour_date' => ['required',],
-            /*'reference_id' => ['required',],*/
-            'agent'        => ['required',],
-            'tour_name'     => ['required',],
-            'series'        => ['required',],
-            'destination'   => ['required',],
-            'situation'     => ['required',],
-            'pax'           => ['required',],
-            'service'       => []
+            'name' => [],
+            'short_name' => ['required'],
+            'remarks' => []
         ];
     }
 }
