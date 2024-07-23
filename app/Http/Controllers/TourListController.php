@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TourRequest;
+use App\Models\Agent;
+use App\Models\Destination;
+use App\Models\Situation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\PersiaTour;
@@ -28,7 +32,6 @@ class TourListController extends Controller
         return view('tourlist',['users'=>$pendinglist]);
 
     }
-
     /**
      * @param Request $request
      * @return mixed
@@ -36,8 +39,17 @@ class TourListController extends Controller
     public function editTour(Request $request):mixed
     {
         $tour = PersiaTour::where('id', $request->input('tour_id'))->first();
-        return view('tour.tour_edit',compact('tour'));
+        $agents = Agent::all();
+        $destinations = Destination::all();
+        $situations = Situation::all();
+        return view('tour.tour_edit',compact('tour','agents','destinations','situations'));
     }
+
+    public function updateTourList(TourRequest $request)
+    {
+        
+    }
+
 
 
     /**
