@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-
+    <title></title>
     @vite('resources/css/app.css')
 </head>
 <body class="bg-gray-50">
 <section class="text-gray-600 w-full flex flex-col items-center px-2">
-    <h1 class="text-3xl font-bold mt-10">Tour Information Settings</h1>
+    <h1 class="text-3xl font-bold mt-10">Agent Information Settings</h1>
 
     <div class="w-full flex justify-center">
         <form class="shadow-md rounded-b-md bg-white w-full max-w-2xl p-2 " method="get" action="{{ route('confirm.agent') }}">
@@ -22,7 +22,7 @@
             </div>
             <div class="flex sm:items-center mb-6 flex-col sm:flex-row">
                 <label for="name" class="block sm:w-2/5 font-bold sm:text-right mb-1 pr-4">
-                    NAME:<span class="p-1 ml-2 bg-gray-500 rounded text-gray-200">optional</span>
+                    AGENT NAME:<span class="p-1 ml-2 bg-gray-500 rounded text-gray-200">optional</span>
                 </label>
                 <input type="text" id="name" name="name" value="{{old('name')}}"/>
 
@@ -58,7 +58,7 @@
 
             </div>
 
-            <div class="flex justify-center">
+            <div class="flex justify-center p-2">
                 <button type="button" class="bg-blue-700 text-white rounded-xl px-4 mx-2" onClick="history.back()">
                     back
                 </button>

@@ -11,7 +11,12 @@
     <div class="mt-4 w-full flex justify-center">
         <form class="shadow-md rounded-b-md bg-white w-full max-w-2xl p-2 " method="post" action="{{ route('complete.agent') }}">
             @csrf
+            <div class="flex justify-center m-4">
+                    <h2 class="font-bold">Configure the agent with the following details.<br>
+If there are no problems, please press the setting button.
+                    </h2>
 
+            </div>
             <div>
                 <span class="flex justify-center text-red-600">
                     @if($errors->has('name'))
