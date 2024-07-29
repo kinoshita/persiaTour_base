@@ -30,7 +30,7 @@ class AgentListController extends Controller
 
     public function completeAgent(AgentRequest $request)
     {
-        $request->session()->regenerateToken();
+        //$request->session()->regenerateToken();
         try {
             $agent = DB::transaction(function () use($request){
                $ret = Agent::create([

@@ -124,6 +124,22 @@ class TourListController extends Controller
         return view('tour.tour_edit',compact('tour','agents','destinations','situations'));
     }
 
+    public function confirmUpdateTour(TourRequest $request)
+    {
+        try{
+            $tour = DB::transaction(function() use ($request){
+                $ret = PersiaTour::where('id', $request->input('id'))
+                    ->update([
+                        'tour_date' => $request->tour_date,
+                        'agent'
+                    ]);
+            });
+        }catch (\Throwable $e){
+
+        }
+
+    }
+
     public function updateTourList(TourRequest $request)
     {
 

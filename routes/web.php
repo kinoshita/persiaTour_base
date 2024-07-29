@@ -18,7 +18,7 @@ Route::get('/', function () {
 Route::get('/toppage', function () {
     return view('toppage');
     //return view('dashboard');
-})->name('admin.index');
+})->name('top.toppage');
 
 /**
  *
@@ -37,6 +37,8 @@ Route::get('/getpdf',[PdfController::class,'index']);
 
 
 Route::get('/edittour',[TourListController::class, 'editTour'])->name('edit.tour');
+//
+Route::get('/confirmupdateTour',[TourListController::class, 'confirmUpdateTour']);
 
 Route::get('/updatetour',[TourListController::class,'updateTour'])->name('update.tour');
 
