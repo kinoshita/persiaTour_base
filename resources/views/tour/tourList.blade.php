@@ -12,6 +12,14 @@
 <div class="flex justify-center mt-10 text-4xl">
     TOUR LIST
 </div>
+
+@if ($tours == '')
+    <div class="text-right border text-red-600">
+        Tour list has not been registered. <br>
+        Please register your tour list information.
+    </div>
+@endif
+
 <div class="flex justify-end">
     <button type="button" class="bg-blue-700 text-white rounded px-4 mx-2" onclick="location.href='{{ route('tour.tour_settings') }}'">new add</button>
     <button type="button" class="bg-blue-700 text-white rounded px-4 mx-2" onclick="location.href='{{ route('download.tour') }}'">csv download</button>
@@ -23,9 +31,8 @@
         <thead class="">
             <tr class="">
                 <th class="border border-slate-300 px-4 bg-blue-300">Edit</th>
-                <th class="border border-slate-300 px-4 bg-blue-300">Id</th>
                 <th class="border border-slate-300 px-4 bg-blue-300">Date</th>
-
+                <th class="border border-slate-300 px-4 bg-blue-300">Id</th>
                 <th class="border border-slate-300 px-4 bg-blue-300">AGENT</th>
                 <th class="border border-slate-300 px-4 bg-blue-300">TOUR NAME</th>
                 <th class="border border-slate-300 px-4 bg-blue-300">Series/Adhoc</th>
@@ -36,12 +43,13 @@
             </tr>
         </thead>
         <tbody>
+
+
             @foreach($tours as $tour)
                 <tr>
                     <td class="border border-slate-300 py-2"><a href="{{ route('edit.tour',['tour_id' => $tour->id]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a></td>
-                    <td class="border border-slate-300 py-2">{{ sprintf('%05d',$tour->id) }}</td>
                     <td class="border border-slate-300 py-2">{{ $tour->tour_date ? $tour->tour_date : ' '}}</td>
-
+                    <td class="border border-slate-300 py-2">{{ sprintf('%05d',$tour->id) }}</td>
                     <td class="border border-slate-300 py-2">{{ $tour->agent ? $tour->agent : null }}</td>
                     <td class="border border-slate-300 py-2">{{ $tour->tour_name ? $tour->tour_name : null}}</td>
                     <td class="border border-slate-300 py-2">{{ $tour->series ? $tour->series : null}}</td>

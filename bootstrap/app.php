@@ -13,6 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         //
+		$middleware->append(\App\Http\Middleware\BasicAuthMiddleware::class);
+
         $middleware->alias([
             'PDF' => Mccarlosen\LaravelMpdf\Facades\LaravelMpdf::class
         ]);

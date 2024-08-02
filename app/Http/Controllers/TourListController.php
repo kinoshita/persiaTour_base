@@ -6,14 +6,68 @@ use App\Http\Requests\TourRequest;
 use App\Models\Agent;
 use App\Models\Destination;
 use App\Models\Situation;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\PersiaTour;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class TourListController extends Controller
 {
+    // テスト用
+    //
+    public function setPasswordForUsers(Request $request)
+    {
+        Log::info('set password for users');
+        $name = 'test_name';
+        $email = 'kinoko89@gmail.com';
+        $password = 'test1234';
+        $password = Hash::make($password);
+        try{
+            $user = DB::transaction(function() use ($request, $name, $password, $email){
+                $ret = User::create([
+                    'name' => $name,
+                    'email' => $email,
+                    'password' => $password
+                ]);
+                return $ret;
+            });
+            Log::info($user);
+        }catch (\Throwable $e){
+            Log::info($e);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return void
+     */
+
+    public function updatePasswordForUsers(Request $request)
+    {
+
+        $id = '2';
+        $name = 'test_name';
+        $email = 'kinoko89@gmail.com';
+        $password = 'test12345';
+        $password = Hash::make($password);
+        try{
+            $user = DB::transaction(function() use ($request, $id, $name, $email, $password){
+                User::where('id', $id)
+                    ->update([
+                        'name' => $name,
+                        'email' => $email,
+                        'password' => $password
+                    ]);
+            });
+        }catch (\Throwable $e){
+            Log::info($e);
+        }
+    }
+
+
     //
     public function getList(Request $request)
     {
@@ -51,6 +105,7 @@ class TourListController extends Controller
      */
     public function completeTour(TourRequest $request)
     {
+        $request->session()->regenerateToken();
         Log::info($request->input('tour_date'));
         try{
             $tour = DB::transaction(function () use ($request){
@@ -156,7 +211,7 @@ class TourListController extends Controller
     {
         $tourlist = PersiaTour::all();
 
-        $csvHeader = [  'id', 'tour_date', 'reference_id', 'agent',
+        $csvHeader = [  'tour_date','id', 'agent',
                         'tour_name', 'series', 'destination', 'situation',
                         'pax', 'service', 'created_at', 'updated_at'
                     ];
@@ -167,6 +222,11 @@ class TourListController extends Controller
             foreach($csvData as $row){
                 $row['id'] = 'I-' . sprintf('%05d', $row['id']);
                 Log::info($row['id']);
+
+                $tmp = $row['id'];
+                $row['id'] = $row['tour_date'];
+                $row['tour_date'] = $tmp;
+
                 fputcsv($handle, $row);
             }
             fclose($handle);
@@ -177,8 +237,4 @@ class TourListController extends Controller
 
         return $response;
     }
-
-
-
-
 }

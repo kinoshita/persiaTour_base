@@ -8,11 +8,23 @@ use App\Http\Controllers\TourListController;
 
 use Illuminate\Support\Facades\Route;
 
+// set password users
+Route::get('/setUsersPassword', [TourListController::class, 'setPasswordForUsers'])->name('setUsersPassword');
+Route::get('/updateUsersPassword',[TourListController::class, 'updatePasswordForUsers'])->name('updateUsersPassword');
+//
+/*
 Route::get('/', function () {
 	// 2024.07.23 modify
     //return view('top');
     return view('dashboard');
 })->name('admin.index');
+*/
+
+Route::get('/', function(){
+	return view('welcome');
+});
+
+
 
 // TourList
 Route::get('/toppage', function () {
@@ -21,9 +33,8 @@ Route::get('/toppage', function () {
 })->name('top.toppage');
 
 /**
- *
+ * For Tours
  */
-// For Tours
 Route::get('/TourList',[TourListController::class,'getList'])->name('tour.list');
 // set new tour
 Route::get('/setTour',[TourListController::class,'setTourList'])->name('tour.tour_settings');

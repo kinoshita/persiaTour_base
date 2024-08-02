@@ -12,6 +12,14 @@
     <div class="w-full flex justify-center">
         <form class="shadow-md rounded-b-md bg-white w-full max-w-2xl p-2 " method="post" action="{{ route('complete.tour') }}">
             @csrf
+
+            <div class="flex justify-center font-bold text-xl">
+                <br>
+                This will be used to set the tour information. <br>
+                <br>
+            </div>
+
+
             <div>
                 <span class="flex justify-center text-red-600">
                     @if($errors->has('tour_date'))

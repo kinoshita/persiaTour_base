@@ -12,7 +12,13 @@
 <div class="flex justify-center mt-10 text-4xl">
     AGENTS LIST
 </div>
+
+<div class="text-center">
+
+</div>
+
 <div class="flex justify-end">
+
     <button type="button" class="bg-blue-700 text-white rounded px-4 mx-2" onclick="location.href='{{ route('setting.agent') }}'">new add</button>
     <!--<button type="button" class="bg-blue-700 text-white rounded px-4 mx-2" onclick="location.href='{{ route('hotel.download') }}'">csv download</button>-->
 </div>
