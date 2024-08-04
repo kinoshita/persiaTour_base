@@ -107,6 +107,7 @@ class TourListController extends Controller
     {
         $request->session()->regenerateToken();
         Log::info($request->input('tour_date'));
+
         try{
             $tour = DB::transaction(function () use ($request){
                 $ret = PersiaTour:: create([
@@ -121,7 +122,7 @@ class TourListController extends Controller
                 ]);
                 return $ret;
             });
-            return view('tour_complete');
+            return view('tour.tour_complete');
         }catch (\Throwable $e){
             Log::info($e);
         }
@@ -179,25 +180,64 @@ class TourListController extends Controller
         return view('tour.tour_edit',compact('tour','agents','destinations','situations'));
     }
 
-    public function confirmUpdateTour(TourRequest $request)
+    public function updateConfirmTour(Request $request)
+    {
+        return view('tour.tour_update_confirm',['all'=>$request->all()]);
+    }
+
+
+    /**
+     * @param TourRequest $request
+     * @return void
+     */
+    public function updateCompleteTour(TourRequest $request)
     {
         try{
             $tour = DB::transaction(function() use ($request){
-                $ret = PersiaTour::where('id', $request->input('id'))
+                $ret = PersiaTour::where('id', $request->input('reference_id'))
                     ->update([
                         'tour_date' => $request->tour_date,
-                        'agent'
+                        'agent' => $request->agent,
+                        'tour_name' => $request->tour_name,
+                        'series' => $request->series,
+                        'destination' => $request->destination,
+                        'situation' => $request->situation,
+                        'pax' => $request->pax,
+                        'service' => $request->service
                     ]);
+                return $ret;
             });
+
         }catch (\Throwable $e){
 
         }
 
     }
 
-    public function updateTourList(TourRequest $request)
+    public function updateTour(TourRequest $request)
     {
+        // setボタン連打、更新ボタン対応
+        $request->session()->regenerateToken();
 
+        try{
+            $tour = DB::transaction(function() use ($request){
+                $ret = PersiaTour::where('id', $request->input('reference_id'))
+                    ->update([
+                        'tour_date' => $request->tour_date,
+                        'agent' => $request->agent,
+                        'tour_name' => $request->tour_name,
+                        'series' => $request->series,
+                        'destination' => $request->destination,
+                        'situation' => $request->situation,
+                        'pax' => $request->pax,
+                        'service' => $request->service
+                    ]);
+                return $ret;
+            });
+
+        }catch (\Throwable $e){
+
+        }
     }
 
 

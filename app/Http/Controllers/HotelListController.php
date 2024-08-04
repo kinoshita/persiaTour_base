@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\HotelEditRequest;
 use App\Models\Hotel;
+use Exception;
 use http\Env\Response;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -68,6 +70,15 @@ class HotelListController extends Controller
         }
     }
 
+    public function confirmHotel(Request $request)
+    {
+        return view('hotel_confirm',['all'=>$request->all()]);
+    }
+
+
+
+
+
     public function setHotel(Request $request)
     {
         Log::info('setHotel');
@@ -86,7 +97,7 @@ class HotelListController extends Controller
                 return $ret;
             });
             Log::info($hotel);
-            return view('hotel_confirm',compact('hotel'));
+            return view('hotel_complete',compact('hotel'));
         }catch (\Throwable $e){
             Log::info($e);
             return response()->json();
@@ -101,6 +112,8 @@ class HotelListController extends Controller
         ];
 
         $csvData = $hotel_list->toArray();
+
+
         $response = new StreamedResponse(function () use ($csvHeader, $csvData){
             $handle = fopen('php://output', 'w');
             fputcsv($handle, $csvHeader);
@@ -108,10 +121,33 @@ class HotelListController extends Controller
                 fputcsv($handle, $row);
             }
             fclose($handle);
+
         },200,[
             'Content-Type' => 'text/csv',
             'Content-Disposition' => 'attachment; filename="hotelList.csv"',
         ]);
-        return $response;
+
+
+        $filename = sprintf('company-%s.txt', date('Ymd'));
+
+        // ファイルダウンロードさせるために、ヘッダー出力を調整
+        $header = [
+            'Content-Type' => 'application/octet-stream',
+        ];
+
+        return response()->streamDownload(function() use ($csvHeader, $csvData) {
+            $handle = fopen('php://output', 'w');
+            fputcsv($handle, $csvHeader);
+            foreach($csvData as $row){
+                fputcsv($handle, $row);
+            }
+            fclose($handle);
+            Session::flash('message','ttttttttttt');
+        }, 'test_.csv');
     }
+
+
+
+
+
 }

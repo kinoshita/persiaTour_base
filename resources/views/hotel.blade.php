@@ -8,7 +8,7 @@
         <section class="text-gray-600 w-full flex flex-col items-center px-2">
             <h1 class="text-3xl font-bold mt-10">Hotel Information Settings</h1>
             <div class="w-full flex justify-center">
-                <form class="shadow-md rounded-b-md bg-white w-full max-w-2xl p-10" method="post" action="{{ route('hotel.settings') }}">
+                <form class="shadow-md rounded-b-md bg-white w-full max-w-2xl p-10" method="get" action="{{ route('hotel.confirm') }}">
                     @csrf
                     <div class="flex sm:items-center mb-6 flex-col sm:flex-row">
                         <label for="city_name" class="block sm:w-2/5 font-bold sm:text-right mb-1 pr-4">

@@ -4,6 +4,11 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>Hotel List</title>
     @vite('resources/css/app.css')
+　　<style>
+      .d-none {
+          display:none;
+      }
+  </style>
 </head>
 <body>
 <div>
@@ -12,6 +17,12 @@
 <div class="flex justify-center mt-10 text-4xl">
     HOTEL LIST
 </div>
+<!-- -->
+<div>
+    <button type="button" class="file-download-btn"> download test</button>
+</div>
+
+
 <div class="flex justify-end">
     <button type="button" class="bg-blue-700 text-white rounded px-4 mx-2" onclick="location.href='{{ route('hotel.index') }}'">new add</button>
     <button type="button" class="bg-blue-700 text-white rounded px-4 mx-2" onclick="location.href='{{ route('hotel.download') }}'">csv download</button>
@@ -46,11 +57,47 @@
     </table>
 
 </div>
+
+@if (session('message'))
+    {{ session('message') }}
+@endif
+
+<div id="flash-message" class="d-none">
+    <div class="bg-blue-100 border border-blue-500 text-blue-700 px-4 py-3 rounded" role="alert">
+        <p class="font-bold">Informational message</p>
+        <p class="text-sm">Some additional text to explain said message.</p>
+    </div>
+</div>
+
+
+
 <div>
 
     {{$hotels->links('vendor.pagination.tailwind')}}
 </div>
+<script>
+    button = document.querySelector('.file-download-btn');
 
+    button.addEventListener("click", (event) => {
+        ret = window.open('{{ route('hotel.download') }}');  // URLを指定してタブを開く -> コントローラーでダウンロード処理が実行される
+        if(!ret){
+            console.log('fail');
+        }else{
+            console.log('success');
+            const fls = document.getElementById("flash-message");
+            fls.classList.remove("d-none")
+            setTimeout(() => {
+                fls.classList.add("d-none");
+            }, 3000);
+        }
+
+
+
+
+        //location.reload(true);
+        //alert('download success');
+    });
+</script>
 </body>
 </html>
 

@@ -12,6 +12,11 @@
 <div class="flex justify-center mt-10 text-4xl">
     TOUR LIST
 </div>
+@if(session('message'))
+    <div>
+        {{ session('message') }}
+    </div>
+@endif
 
 @if ($tours == '')
     <div class="text-right border text-red-600">

@@ -53,6 +53,10 @@ Route::get('/confirmupdateTour',[TourListController::class, 'confirmUpdateTour']
 
 Route::get('/updatetour',[TourListController::class,'updateTour'])->name('update.tour');
 
+Route::get('/updateTourConfirm',[TourListController::class,'updateConfirmTour'])->name('update.confirm.tour');
+Route::post('/updateTourComplete',[TourListController::class,'updateCompleteTour'])->name('update.complete.tour');
+
+
 
 // TourList CSV Download
 Route::get('/tourcsvdownload',[TourListController::class,'downloadCsvList'])->name('download.tour');
@@ -61,11 +65,12 @@ Route::get('/tourpending',[TourListController::class,'getPendingList']);
 // hotel
 Route::get('/hotel',[HotelListController::class,'index'])->name('hotel.index');
 //
+Route::get('/hotelconfirm',[HotelListController::class, 'confirmHotel'])->name('hotel.confirm');
 Route::get('/hotellist',[HotelListController::class,'getHotelList'])->name('hotel.list');
 // hotel edit
 Route::get('hoteledit', [HotelListController::class,'editHotel'])->name('edit.hotel');
 // hotel post
-Route::post('/hotelsettings',[HotelListController::class,'setHotel'])->name('hotel.settings');
+Route::post('/hotelsettings',[HotelListController::class,'setHotel'])->name('hotel.complete');
 // hotel update
 Route::post('/hotelupdate',[HotelListController::class,'updateHotel'])->name('hotel.update');
 // TourList CSV Download
