@@ -60,11 +60,11 @@
                     AGENT:<span class="p-1 ml-2 bg-red-500 rounded text-gray-200">required</span>
                 </label>
                 <select name="agent" id="agent">
+
                     @foreach($agents as $agent)
-                    <option value="{{$agent->short_name}}">{{$agent->short_name}}</option>
+                    <option value="{{$agent->short_name}}"  @if ($agent->short_name == $tour->agent) selected @endif>{{$agent->short_name}}</option>
                     @endforeach
                 </select>
-
 
 
 

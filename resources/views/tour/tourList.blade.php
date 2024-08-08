@@ -12,6 +12,9 @@
 <div class="flex justify-center mt-10 text-4xl">
     TOUR LIST
 </div>
+<div class="flex justify-end">
+    <button type="button" class="bg-blue-700 text-white rounded px-2 mx-4 my-2" onclick="location.href='{{route('top.toppage')}}'">Top page</button>
+</div>
 @if(session('message'))
     <div>
         {{ session('message') }}

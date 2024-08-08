@@ -192,18 +192,19 @@ class TourListController extends Controller
      */
     public function updateCompleteTour(TourRequest $request)
     {
+        $request->session()->regenerateToken();
         try{
             $tour = DB::transaction(function() use ($request){
                 $ret = PersiaTour::where('id', $request->input('reference_id'))
                     ->update([
-                        'tour_date' => $request->tour_date,
-                        'agent' => $request->agent,
-                        'tour_name' => $request->tour_name,
-                        'series' => $request->series,
-                        'destination' => $request->destination,
-                        'situation' => $request->situation,
-                        'pax' => $request->pax,
-                        'service' => $request->service
+                        'tour_date' => $request->input('tour_date'),
+                        'agent' => $request->input('agent'),
+                        'tour_name' => $request->input('tour_name'),
+                        'series' => $request->input('series'),
+                        'destination' => $request->input('destination'),
+                        'situation' => $request->input('situation'),
+                        'pax' => $request->input('pax'),
+                        'service' => $request->input('service')
                     ]);
                 return $ret;
             });
@@ -211,7 +212,7 @@ class TourListController extends Controller
         }catch (\Throwable $e){
 
         }
-
+        return view('tour.tour_update_complete');
     }
 
     public function updateTour(TourRequest $request)
@@ -238,6 +239,8 @@ class TourListController extends Controller
         }catch (\Throwable $e){
 
         }
+        view('');
+
     }
 
 

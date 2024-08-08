@@ -10,9 +10,9 @@
     <h1 class="text-3xl font-bold mt-10">Tour Information Settings</h1>
 
     <div class="w-full flex justify-center">
-        <form class="shadow-md rounded-b-md bg-white w-full max-w-2xl p-2 " method="post" action="{{ route('complete.tour') }}">
+        <form class="shadow-md rounded-b-md bg-white w-full max-w-2xl p-2 " method="post" action="{{ route('update.complete.tour') }}">
             @csrf
-
+            <input type="hidden" name="reference_id" value="{{$all['reference_id']}}">
             <div class="flex justify-center font-bold text-xl">
                 <br>
                 This will be used to set the tour information. <br>
