@@ -16,7 +16,7 @@ class BasicAuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-     /*   $username = $request->getUser();
+        $username = $request->getUser();
         $password = $request->getPassword();
 
         if ($username == 'persiatour' && $password == 'persiatour') {
@@ -28,7 +28,7 @@ class BasicAuthMiddleware
             header('Content-Type: text/plain; charset=utf-8')
         ]);
 
-	*/
+	
         return $next($request);
     }
 }

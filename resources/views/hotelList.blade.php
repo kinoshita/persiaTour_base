@@ -21,7 +21,9 @@
 <div>
     <button type="button" class="file-download-btn"> download test</button>
 </div>
-
+<div class="flex justify-end">
+    <button type="button" class="bg-red-700 text-white rounded mx-2 my-2 px-2" onclick="">Top Page</button>
+</div>
 
 <div class="flex justify-end">
     <button type="button" class="bg-blue-700 text-white rounded px-4 mx-2" onclick="location.href='{{ route('hotel.index') }}'">new add</button>

@@ -10,7 +10,7 @@
     <h1 class="text-3xl font-bold mt-10">Tour Information Settings</h1>
 
     <div class="w-full flex justify-center">
-        <form class="shadow-md rounded-b-md bg-white w-full max-w-2xl p-2 " method="get" action="{{ route('update.confirm.tour') }}">
+        <form class="shadow-md rounded-b-md bg-white w-full max-w-2xl p-2 my-6" method="get" action="{{ route('update.confirm.tour') }}">
             @csrf
             <input type="hidden" name="id" value="{{old('id',$tour->id)}}" />
             <div>

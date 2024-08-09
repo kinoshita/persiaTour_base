@@ -22,15 +22,16 @@ class TourRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tour_date' => ['required',],
+            // 本日も含めるため、after:yesterday
+            'tour_date' => 'required|date|after:today',
             /*'reference_id' => ['required',],*/
             'agent'        => ['required',],
             'tour_name'     => ['required',],
             'series'        => ['required',],
             'destination'   => ['required',],
             'situation'     => ['required',],
-            /*'pax'           => ['required',],*/
-            'service'       => []
+            'pax'           => 'nullable|integer',
+            'service'       => 'nullable'
         ];
     }
 }

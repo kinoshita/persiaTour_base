@@ -2,17 +2,25 @@
 <html lang="ja">
 <head>
     <meta charset="utf-8">
-
     @vite('resources/css/app.css')
 </head>
 <body class="bg-gray-50">
 <section class="text-gray-600 w-full flex flex-col items-center px-2">
-    <h1 class="text-3xl font-bold mt-10">Hotel Information Settings</h1>
+    <h1 class="text-3xl font-bold mt-10">Hotel Information Update</h1>
 
     <div class="w-full flex justify-center">
         <form class="shadow-md rounded-b-md bg-white w-full max-w-2xl p-2 " method="get" action="{{ route('update.hotel.confirm') }}">
             @csrf
             <input type="hidden" name="id" value="{{old('id',$hotel->id)}}" />
+
+            <div class="flex sm:items-center mb-6 flex-col sm:flex-row">
+                <label for="city_name" class="block sm:w-2/5 font-bold sm:text-right pr-4">
+                    ID:
+                </label>
+                <div class="block w-full sm:w-3/5  text-gray-700  focus:outline-none ">
+                    {{old('id',$hotel->id)}}
+                </div>
+            </div>
             <div>
                 <span class="flex justify-center text-red-600">
                     @if($errors->has('city_name'))
