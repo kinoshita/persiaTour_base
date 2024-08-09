@@ -41,13 +41,17 @@ class HotelListController extends Controller
         $hotel = Hotel::where('id', $request->input('hotel_id'))->first();
         return view('hotel_edit',compact('hotel'));
     }
+    public function updateHotelConfirm(HotelEditRequest $request)
+    {
+        return view('hotel_update_confirm', ['hotels'=>$request->all()]);
+    }
 
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Http\JsonResponse
      *
      */
-    public function updateHotel(HotelEditRequest $request)
+    public function updateHotelComplete(HotelEditRequest $request)
     {
         Log::info($request->all());
         try{
@@ -70,7 +74,7 @@ class HotelListController extends Controller
         }
     }
 
-    public function confirmHotel(Request $request)
+    public function confirmHotel(HotelEditRequest $request)
     {
         return view('hotel_confirm',['all'=>$request->all()]);
     }

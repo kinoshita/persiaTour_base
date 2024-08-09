@@ -15,13 +15,9 @@
         </div>
     </div>
     <div class="flex justify-center">
-        <button type="button" class="bg-blue-700 text-white rounded-xl px-4 mx-2" onclick="location.href='{{route('admin.index')}}' ">
-            Top
-        </button>
 
-        <button type="button" class="bg-blue-700 text-white rounded-xl px-4 mx-2" onclick="location.href='{{route('hotel.list')}}' ">
-            Hotel Setting
-        </button>
+
+
     </div>
 </section>
 </body>

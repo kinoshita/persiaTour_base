@@ -25,7 +25,7 @@ class HotelEditRequest extends FormRequest
             'city_name' => ['required','string'],
             'hotel_name' => ['required'],
             'address' => ['required'],
-         /*   'tel'   => ['required'],*/
+            'tel'   => ['required'],
             'fax'   => []
         ];
     }
