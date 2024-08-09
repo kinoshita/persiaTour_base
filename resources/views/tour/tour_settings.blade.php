@@ -23,7 +23,7 @@
                     <label for="tour_date" class="block sm:w-2/5 font-bold sm:text-right mb-1 pr-4">
                         TOUR DATE:<span class="p-1 ml-2 bg-red-500 rounded text-gray-200">required</span>
                     </label>
-                    <input type="date"  required pattern="\d{4}-\d{2}-\d{2}" class="block w-full sm:w-3/5 py-2 px-3 text-gray-700 border border-gray-200 rounded focus:outline-none focus:bg-white" id="tour_date" name="tour_date" value="{{old('tour_date')}}"/>
+                    <input type="date" required pattern="\d{4}-\d{2}-\d{2}" class="block w-full sm:w-3/5 py-2 px-3 text-gray-700 border border-gray-200 rounded focus:outline-none focus:bg-white" id="tour_date" name="tour_date" value="{{old('tour_date')}}"/>
                 </div>
                 <div>
                     <span class="flex justify-center text-red-600">
@@ -54,7 +54,7 @@
                     <label for="tour_name" class="block sm:w-2/5 font-bold sm:text-right mb-1 pr-4">
                         TOUR NAME:<span class="p-1 ml-2 bg-red-500 rounded text-gray-200">required</span>
                     </label>
-                    <input type="text" class="block w-full sm:w-3/5 py-2 px-3 text-gray-700 border border-gray-200 rounded focus:outline-none focus:bg-white" id="tour_name" name="tour_name" placeholder="NTC Northen Iran" value="{{old('tour_name')}}"/>
+                    <input type="text" required class="block w-full sm:w-3/5 py-2 px-3 text-gray-700 border border-gray-200 rounded focus:outline-none focus:bg-white" id="tour_name" name="tour_name" placeholder="NTC Northen Iran" value="{{old('tour_name')}}"/>
                 </div>
                 <div>
                     <span class="flex justify-center text-red-600">
@@ -121,9 +121,9 @@
                 </div>
                 <div class="flex sm:items-center mb-6 flex-col sm:flex-row">
                     <label for="pax" class="block sm:w-2/5 font-bold sm:text-right mb-1 pr-4">
-                        PAX:<span class="p-1 ml-2 bg-red-500 rounded text-gray-200">required</span>
+                        PAX:<span class="p-1 ml-2 bg-gray-500 rounded text-gray-200">optional</span>
                     </label>
-                    <input class="block w-full sm:w-3/5 py-2 px-3 text-gray-700 border border-gray-200 rounded focus:outline-none focus:bg-white" id="pax" name="pax" value="{{old('pax')}}"/>
+                    <input class="block w-full sm:w-3/5 py-2 px-3 text-gray-700 border border-gray-200 rounded focus:outline-none focus:bg-white" placeholder="5" id="pax" name="pax" value="{{old('pax')}}"/>
                 </div>
                 <!-- -->
                 <div>

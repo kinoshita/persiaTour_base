@@ -29,7 +29,7 @@ class TourRequest extends FormRequest
             'series'        => ['required',],
             'destination'   => ['required',],
             'situation'     => ['required',],
-            'pax'           => ['required',],
+            /*'pax'           => ['required',],*/
             'service'       => []
         ];
     }

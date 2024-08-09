@@ -75,7 +75,9 @@ class TourListController extends Controller
         return view('tour.tourList', compact('tours'));
     }
 
-    //
+    /*
+     * ツアー情報の設定を行う
+     */
     public function setTourList(Request $request)
     {
         // Agent

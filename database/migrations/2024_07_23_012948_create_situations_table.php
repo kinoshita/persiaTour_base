@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('situation')->nullable(false)->comment('situation');
             $table->timestamps();
         });
+        Artisan::call('db:seed',['--class'=>'SituationSeeder']);
     }
 
     /**
