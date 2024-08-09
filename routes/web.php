@@ -69,6 +69,11 @@ Route::get('/hotelconfirm',[HotelListController::class, 'confirmHotel'])->name('
 Route::get('/hotellist',[HotelListController::class,'getHotelList'])->name('hotel.list');
 // hotel edit
 Route::get('hoteledit', [HotelListController::class,'editHotel'])->name('edit.hotel');
+// hotel update confirm 
+Route::get('updateHotelConfirm', [HotelListController::class,'updateHotelConfirm'])->name('update.hotel.confirm');
+Route::post('updateHotelComplete', [HotelListController::class,'updateHotelComplete'])->name('update.hotel.complete');
+
+
 // hotel post
 Route::post('/hotelsettings',[HotelListController::class,'setHotel'])->name('hotel.complete');
 // hotel update
