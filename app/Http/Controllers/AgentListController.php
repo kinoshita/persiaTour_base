@@ -14,7 +14,7 @@ class AgentListController extends Controller
     public function getAgentList()
     {
         $agent_list = DB::table('agents')->paginate(3);
-        return view('agent.agentlist',['agents' => $agent_list]);
+        return view('agent.agentList',['agents' => $agent_list]);
     }
 
     public function settingAgent()
